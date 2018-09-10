@@ -35,7 +35,14 @@ class MergeVideoViewController: UIViewController {
   var firstAsset: AVAsset?
   var secondAsset: AVAsset?
   var audioAsset: AVAsset?
+  let context: CIContext
   var loadingAssetOne = false
+  required init?(coder aDecoder: NSCoder) {
+    let eagl = EAGLContext(api: EAGLRenderingAPI.openGLES2)
+    context = CIContext.init(eaglContext: eagl!)
+    super.init(coder: aDecoder)
+  }
+  
   
   @IBOutlet var activityMonitor: UIActivityIndicatorView!
   
@@ -106,10 +113,35 @@ class MergeVideoViewController: UIViewController {
   }
     
   @IBAction func merge(_ sender: AnyObject) {
-    guard let firstAsset = firstAsset, let secondAsset = secondAsset else { return }
+    guard let firstAsset = firstAsset else { return }
     
     activityMonitor.startAnimating()
+    guard let cifilter = CIFilter.init(name: "CIVibrance") else {
+      print("error")
+      return
+    }
     
+    var filters: [CIFilter] = []
+    
+    
+    cifilter.setValue(2, forKey: "inputAmount")
+    filters.append(cifilter)
+    
+    // 4 - Get path
+    guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateStyle = .long
+    dateFormatter.timeStyle = .short
+    let date = dateFormatter.string(from: Date())
+    let url = documentDirectory.appendingPathComponent("mergeVideo-\(date).mov")
+    
+    
+//    let videoExport = VideoFilterExport.init(asset: firstAsset, filters: [cifilter])
+//    videoExport.exportVideoAsyncTask(toURL: url) { (exporters) in
+//      self.exportDidFinish(exporters!)
+//    }
+//    return
+    guard let secondAsset = self.secondAsset else { return }
     // 1 - Create AVMutableComposition object. This object will hold your AVMutableCompositionTrack instances.
     let mixComposition = AVMutableComposition()
     
@@ -137,8 +169,8 @@ class MergeVideoViewController: UIViewController {
     }
     
     // 2.1
-    let mainInstruction = AVMutableVideoCompositionInstruction()
-    
+    let mainInstruction = VideoFilterCompositionInstruction(trackID: [firstTrack.trackID, secondTrack.trackID], filters: filters, context: self.context)
+
     let time = firstAsset.duration > secondAsset.duration ?  firstAsset.duration  : secondAsset.duration
     
     mainInstruction.timeRange = CMTimeRangeMake(kCMTimeZero,  time )
@@ -152,6 +184,7 @@ class MergeVideoViewController: UIViewController {
     let inst = firstAsset.duration > secondAsset.duration ?  [firstInstruction, secondInstruction] : [secondInstruction, firstInstruction ]
     mainInstruction.layerInstructions = inst
     let mainComposition = AVMutableVideoComposition()
+    mainComposition.customVideoCompositorClass = VideoFilterCompositor.self
     mainComposition.instructions = [mainInstruction]
     mainComposition.frameDuration = CMTimeMake(1, 30)
     mainComposition.renderSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -167,14 +200,8 @@ class MergeVideoViewController: UIViewController {
         print("Failed to load Audio track")
       }
     }
+
     
-    // 4 - Get path
-    guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateStyle = .long
-    dateFormatter.timeStyle = .short
-    let date = dateFormatter.string(from: Date())
-    let url = documentDirectory.appendingPathComponent("mergeVideo-\(date).mov")
     
     // 5 - Create Exporter
     guard let exporter = AVAssetExportSession(asset: mixComposition, presetName: AVAssetExportPresetHighestQuality) else { return }

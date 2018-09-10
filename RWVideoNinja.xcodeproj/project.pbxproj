@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		5C2901831F8F6DE700803663 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C2901821F8F6DE700803663 /* LaunchScreen.storyboard */; };
+		A24245322146273200BE7508 /* VideoFilterCompositionInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A242452F2146273200BE7508 /* VideoFilterCompositionInstruction.swift */; };
+		A24245332146273200BE7508 /* VideoFilterCompositor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24245302146273200BE7508 /* VideoFilterCompositor.swift */; };
+		A24245342146273200BE7508 /* VideoFilterExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24245312146273200BE7508 /* VideoFilterExporter.swift */; };
+		A24245372146275500BE7508 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A24245362146275500BE7508 /* AVFoundation.framework */; };
+		A24245392146277F00BE7508 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A24245382146277F00BE7508 /* CoreGraphics.framework */; };
+		A242453B2146278B00BE7508 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A242453A2146278B00BE7508 /* CoreImage.framework */; };
+		A242453D2146279500BE7508 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A242453C2146279500BE7508 /* CoreMedia.framework */; };
 		C0993CC52039D8A200165FCF /* MergeVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0993CC12039D8A200165FCF /* MergeVideoViewController.swift */; };
 		C0993CC62039D8A200165FCF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0993CC22039D8A200165FCF /* HomeViewController.swift */; };
 		C0993CC72039D8A200165FCF /* PlayVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0993CC32039D8A200165FCF /* PlayVideoViewController.swift */; };
@@ -20,6 +27,13 @@
 
 /* Begin PBXFileReference section */
 		5C2901821F8F6DE700803663 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A242452F2146273200BE7508 /* VideoFilterCompositionInstruction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoFilterCompositionInstruction.swift; sourceTree = "<group>"; };
+		A24245302146273200BE7508 /* VideoFilterCompositor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoFilterCompositor.swift; sourceTree = "<group>"; };
+		A24245312146273200BE7508 /* VideoFilterExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoFilterExporter.swift; sourceTree = "<group>"; };
+		A24245362146275500BE7508 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		A24245382146277F00BE7508 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		A242453A2146278B00BE7508 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		A242453C2146279500BE7508 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		C0993CC12039D8A200165FCF /* MergeVideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MergeVideoViewController.swift; sourceTree = "<group>"; };
 		C0993CC22039D8A200165FCF /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C0993CC32039D8A200165FCF /* PlayVideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayVideoViewController.swift; sourceTree = "<group>"; };
@@ -37,17 +51,33 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A242453D2146279500BE7508 /* CoreMedia.framework in Frameworks */,
+				A242453B2146278B00BE7508 /* CoreImage.framework in Frameworks */,
+				A24245392146277F00BE7508 /* CoreGraphics.framework in Frameworks */,
+				A24245372146275500BE7508 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A24245352146275500BE7508 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A242453C2146279500BE7508 /* CoreMedia.framework */,
+				A242453A2146278B00BE7508 /* CoreImage.framework */,
+				A24245382146277F00BE7508 /* CoreGraphics.framework */,
+				A24245362146275500BE7508 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D2A5F1F71F4A9143005CD714 = {
 			isa = PBXGroup;
 			children = (
 				D2A5F2021F4A9144005CD714 /* RWVideoNinja */,
 				D2A5F2011F4A9144005CD714 /* Products */,
+				A24245352146275500BE7508 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -64,6 +94,9 @@
 		D2A5F2021F4A9144005CD714 /* RWVideoNinja */ = {
 			isa = PBXGroup;
 			children = (
+				A242452F2146273200BE7508 /* VideoFilterCompositionInstruction.swift */,
+				A24245302146273200BE7508 /* VideoFilterCompositor.swift */,
+				A24245312146273200BE7508 /* VideoFilterExporter.swift */,
 				D2A5F2201F4A96D0005CD714 /* AppDelegate.swift */,
 				C0993CC22039D8A200165FCF /* HomeViewController.swift */,
 				C0993CC12039D8A200165FCF /* MergeVideoViewController.swift */,
@@ -152,10 +185,13 @@
 			files = (
 				C0993CC72039D8A200165FCF /* PlayVideoViewController.swift in Sources */,
 				C0993CC82039D8A200165FCF /* RecordVideoViewController.swift in Sources */,
+				A24245332146273200BE7508 /* VideoFilterCompositor.swift in Sources */,
+				A24245342146273200BE7508 /* VideoFilterExporter.swift in Sources */,
 				C0993CC62039D8A200165FCF /* HomeViewController.swift in Sources */,
 				C0993CCA2039EF9F00165FCF /* VideoHelper.swift in Sources */,
 				D2A5F2211F4A96D0005CD714 /* AppDelegate.swift in Sources */,
 				C0993CC52039D8A200165FCF /* MergeVideoViewController.swift in Sources */,
+				A24245322146273200BE7508 /* VideoFilterCompositionInstruction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,8 +325,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = V273NW4VAJ;
 				INFOPLIST_FILE = "$(SRCROOT)/RWVideoNinja/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.razeware.-RWVideoNinja";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -305,8 +342,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = V273NW4VAJ;
 				INFOPLIST_FILE = "$(SRCROOT)/RWVideoNinja/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.razeware.-RWVideoNinja";
 				PRODUCT_NAME = "$(TARGET_NAME)";
