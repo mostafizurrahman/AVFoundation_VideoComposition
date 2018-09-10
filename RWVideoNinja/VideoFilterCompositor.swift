@@ -66,19 +66,24 @@ class VideoFilterCompositor : NSObject, AVVideoCompositing{
         }
         
         var image = CIImage(cvPixelBuffer: pixels)
+        var image2 = CIImage(cvPixelBuffer: pixels2).app
         for filter in instruction.filters{
           filter.setValue(image, forKey: kCIInputImageKey)
           image = filter.outputImage ?? image
+          filter.setValue(image2, forKey: kCIInputImageKey)
+          image2 = filter.outputImage ?? image2
         }
         
         let newBuffer: CVPixelBuffer? = self.renderContext.newPixelBuffer()
         
-        if let buffer = newBuffer{
+        if let buffer = newBuffer {
           instruction.context.render(image, to: buffer)
+          instruction.context.render(image2, to: buffer)
           request.finish(withComposedVideoFrame: buffer)
         }
         else{
           request.finish(withComposedVideoFrame: pixels)
+          request.finish(withComposedVideoFrame: pixels2)
         }
       }
     }
